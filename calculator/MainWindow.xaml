@@ -5,55 +5,55 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:calculator"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Calculator" Height="550" Width="400">
     <Grid>
 		<Grid.ColumnDefinitions>
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-			<ColumnDefinition />
-		</Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
 		<Grid.RowDefinitions>
 			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
-			<RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
 		<!-- Number Buttons-->
 
 		<!-- Number Buttons-->
-		<Button x:Name="buttonSeven" BorderThickness="1.5" BorderBrush="#00b8e6" Content="7" Grid.Row="2" Grid.Column="0" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonEight"  BorderThickness="1.5" BorderBrush="#00b8e6" Content="8" Grid.Row="2" Grid.Column="1" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonNine" BorderThickness="1.5" BorderBrush="#00b8e6" Content="9" Grid.Row="2" Grid.Column="2" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonFour" BorderThickness="1.5" BorderBrush="#00b8e6" Content="4" Grid.Row="3" Grid.Column="0" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonFive" BorderThickness="1.5" BorderBrush="#00b8e6" Content="5" Grid.Row="3" Grid.Column="1" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonSix" BorderThickness="1.5" BorderBrush="#00b8e6" Content="6" Grid.Row="3" Grid.Column="2" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonOne" BorderThickness="1.5" BorderBrush="#00b8e6" Content="1" Grid.Row="4" Grid.Column="0" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonTwo" BorderThickness="1.5" BorderBrush="#00b8e6" Content="2" Grid.Row="4" Grid.Column="1" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonThree" BorderThickness="1.5" BorderBrush="#00b8e6" Content="3" Grid.Row="4" Grid.Column="2" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
-		<Button x:Name="buttonZero" BorderThickness="1.5" BorderBrush="#00b8e6" Content="0" Grid.Row="5" Grid.Column="1" FontSize="24" Foreground="DarkSlateGray" Background="#039BE5" Click="Button_Click"/>
+		<Button x:Name="buttonSeven" BorderThickness="1.5" BorderBrush="#334455" Content="7" Grid.Row="2" Grid.Column="0" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonEight"  BorderThickness="1.5" BorderBrush="#334455" Content="8" Grid.Row="2" Grid.Column="1" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonNine" BorderThickness="1.5" BorderBrush="#334455" Content="9" Grid.Row="2" Grid.Column="2" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonFour" BorderThickness="1.5" BorderBrush="#334455" Content="4" Grid.Row="3" Grid.Column="0" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonFive" BorderThickness="1.5" BorderBrush="#334455" Content="5" Grid.Row="3" Grid.Column="1" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonSix" BorderThickness="1.5" BorderBrush="#334455" Content="6" Grid.Row="3" Grid.Column="2" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonOne" BorderThickness="1.5" BorderBrush="#334455" Content="1" Grid.Row="4" Grid.Column="0" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonTwo" BorderThickness="1.5" BorderBrush="#334455" Content="2" Grid.Row="4" Grid.Column="1" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonThree" BorderThickness="1.5" BorderBrush="#334455" Content="3" Grid.Row="4" Grid.Column="2" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
+		<Button x:Name="buttonZero" BorderThickness="1.5" BorderBrush="#334455" Content="0" Grid.Row="5" Grid.Column="1" FontSize="32" Foreground="#FFFFFF" Background="#181A1B" Click="Button_Numbers"/>
 
 		<!-- Operator Buttons-->
-		<Button x:Name="buttonNegative" BorderThickness="1.5"  BorderBrush="#00b8e6" Content="+/-" Grid.Row="5" Grid.Column="0" FontSize="20" Background ="#0288D1" Click="Button_Negative"/>
-		<Button x:Name="buttonEquals" BorderThickness="1.5" BorderBrush="#00b8e6" Content="=" Grid.Row="5" Grid.Column="3" FontSize="24" Background= "#81D4FA" Click="Button_Operand"/>
-		<Button x:Name="buttonPlus" BorderThickness="1.5" BorderBrush="#00b8e6" Content="+" Grid.Row="4" Grid.Column="3" FontSize="24" Background ="#0288D1" Click="Button_Operand"/>
-		<Button x:Name="buttonMinus" BorderThickness="1.5" BorderBrush="#00b8e6" Content="-" Grid.Row="3" Grid.Column="3" FontSize="24" Background ="#0288D1" Click="Button_Operand"/>
-		<Button x:Name="buttonMultiplied" BorderThickness="1.5" BorderBrush="#00b8e6" Content="×" Grid.Row="2" Grid.Column="3" FontSize="24" Background ="#0288D1" Click="Button_Operand"/>
-		<Button x:Name="buttonDivided" BorderThickness="1.5" BorderBrush="#00b8e6" Content="÷" Grid.Row="1" Grid.Column="3" FontSize="24" Background ="#0288D1" Click="Button_Operand"/>
-		<Button x:Name="buttonDecimal" BorderThickness="1.5" BorderBrush="#00b8e6" Content="." Grid.Row="5" Grid.Column="2" FontSize="24" Background ="#0288D1" Click="Button_Click"/>
+		<Button x:Name="buttonNegative" BorderThickness="1.5"  BorderBrush="#334455" Content="+/-" Grid.Row="5" Grid.Column="0" Foreground="#FFFF" FontSize="20" Background ="#181A1B" Click="Button_Negative"/>
+        <Button x:Name="buttonEquals" BorderThickness="1.5" BorderBrush="#334455" Content="=" Grid.Row="5" Grid.Column="3" Foreground="#FFFF" FontSize="32" Background= "#212529" Click="Button_Equals"/>
+        <Button x:Name="buttonPlus" BorderThickness="1.5" BorderBrush="#334455" Content="+" Grid.Row="4" Grid.Column="3" Foreground="#FFFF" FontSize="32" Background ="#181A1B" Click="Button_Operand"/>
+        <Button x:Name="buttonMinus" BorderThickness="1.5" BorderBrush="#334455" Content="-" Grid.Row="3" Grid.Column="3" Foreground="#FFFF" FontSize="32" Background="#181A1B" Click="Button_Operand"/>
+        <Button x:Name="buttonMultiplied" BorderThickness="1.5" BorderBrush="#334455" Content="×" Grid.Row="2" Grid.Column="3" Foreground="#FFFF" FontSize="32" Background ="#181A1B" Click="Button_Operand"/>
+        <Button x:Name="buttonDivided" BorderThickness="1.5" BorderBrush="#334455" Content="÷" Grid.Row="1" Grid.Column="3" Foreground="#FFFF" FontSize="32" Background ="#181A1B" Click="Button_Operand"/>
+		<Button x:Name="buttonDecimal" BorderThickness="1.5" BorderBrush="#334455" Content="." Grid.Row="5" Grid.Column="2" Foreground="#FFFF" FontSize="32" Background ="#181A1B" Click="Button_Numbers"/>
 
 		<!-- Clear Buttons -->
-		<Button x:Name="buttonBackspace" BorderThickness="1.5" BorderBrush="#00b8e6" Content="⌫" Grid.Row="1" Grid.Column="2" FontSize="18" Background="#0277BD" Click="ButtonBackspace_Click"/>
-		<Button x:Name="buttonClear" BorderThickness="1.5" BorderBrush="#00b8e6" Content="C" Grid.Row="1" Grid.Column="1" FontSize="18" Background="#0277BD" Click="Clear_Click"/>
-		<Button x:Name="buttonClearEntry" BorderThickness="1.5" BorderBrush="#00b8e6" Content="CE" Grid.Row="1" Grid.Column="0" FontSize="18" Background="#0277BD" Click="CE_Click"/>
+        <Button x:Name="buttonBackspace" BorderThickness="1.5" BorderBrush="#334455" Content="⌫" Grid.Row="1" Grid.Column="2" Foreground="#FFFF" FontSize="18" Background="#181A1B" Click="ButtonBackspace_Click"/>
+        <Button x:Name="buttonClear" BorderThickness="1.5" BorderBrush="#334455" Content="C" Grid.Row="1" Grid.Column="1" Foreground="#FFFF" FontSize="18" Background="#181A1B" Click="Clear_Click"/>
+        <Button x:Name="buttonClearEntry" BorderThickness="1.5" BorderBrush="#334455" Content="CE" Grid.Row="1" Grid.Column="0" Foreground="#FFFF" FontSize="18" Background="#181A1B" Click="CE_Click"/>
 
-		<Border Background= "#81D4FA" Grid.Row="0" Grid.ColumnSpan="4"/>
-		<TextBlock x:Name="labelContentOutput" HorizontalAlignment="Stretch" Text="0" TextAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="4" Grid.Row="0" Grid.Column="0" FontSize="35" Foreground="Black"/>
-		<TextBlock x:Name="textEquationPreview" Text="testing" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4,0" TextAlignment="Right" Foreground="DarkSlateGray" Grid.ColumnSpan="3"/>
+		<Border Background= "#334455" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="1"/>
+        <TextBlock x:Name="labelContentOutput" HorizontalAlignment="Stretch"  Text="0" Padding="13" TextAlignment="Right" VerticalAlignment="Bottom" Grid.ColumnSpan="4" Grid.Row="0" Grid.Column="0"  FontSize="32" Foreground="#FFFF"/>
+        <TextBlock x:Name="labelEquationPreview" Text="" FontSize="24" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="4,0" TextAlignment="Right" Foreground="#FFD300" Grid.ColumnSpan="3"/>
 
 	</Grid>
 </Window>

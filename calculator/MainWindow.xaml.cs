@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace calculator
 {
@@ -20,255 +10,132 @@ namespace calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        decimal numOne, numTwo = 0.0m;
+        string result;
+        string operation = "";
 
         public MainWindow()
         {
             InitializeComponent();
-            ClearAll();
         }
 
-        public void ClearAll()
+        private void Clear_Click(object sender, RoutedEventArgs e)
         {
-            ShowNumber = 0;
-            Result = 0;
-            FirstNumber = 0;
-            SecondNumber = 0;
-            IsNegative = false;
-            IsSecond = false;
-            IsDecimal = false;
-            DecimalValue = 1;
-            NegativeValue = -1;
-            Operand = string.Empty;
-        }
+            numOne = 0;
+            numTwo = 0;
+            operation = "";
+            labelContentOutput.Text = "0";
+            labelEquationPreview.Text = "";
 
-        //Double Value = 0; // Store Decimal and Int Values if needed
-        private string Operand;
-
-        private bool OperandPressed;
-
-
-        private double _showNumber;
-
-        public double ShowNumber
-        {
-            get { return _showNumber; }
-            set
-            {
-                _showNumber = value;
-                labelContentOutput.Text = ShowNumber.ToString();
-            }
-        }
-
-        private double _firstNumber;
-
-        public double FirstNumber
-        {
-            get { return _firstNumber; }
-            set { _firstNumber = value; }
-        }
-
-        public double SecondNumber { get; set; }
-
-        public double Result { get; set; }
-
-        public bool IsSecond { get; set; }
-
-        public bool IsDecimal { get; set; }
-
-        public double NegativeValue { get; set; }
-
-        public int DecimalValue { get; set; }
-        public bool IsNegative { get; private set; }
-
-        private void Clear_Click(object senShowNumdEventArgs, RoutedEventArgs e)
-        {
-            ClearAll();
+            buttonPlus.IsEnabled = true;
+            buttonMinus.IsEnabled = true;
+            buttonMultiplied.IsEnabled = true;
+            buttonDivided.IsEnabled = true;
         }
 
         private void CE_Click(object sender, RoutedEventArgs e)
         {
-            if (Operand != "")
-            {
-                if (SecondNumber > 0)
-                {
-                    SecondNumber = 0;
-                    ShowNumber = SecondNumber;
-                    IsDecimal = false;
-                    DecimalValue = 1;
-                }
-                else
-                {
-                    Operand = "";
-                    IsSecond = false;
-                }
-            }
-            else
-            {
-                ClearAll();
-            }
             labelContentOutput.Text = "0";
-            textEquationPreview.Text = "";
+        }
+
+        private void Button_Equals(object sender, RoutedEventArgs e)
+        {
+            numTwo = decimal.Parse(labelContentOutput.Text);
+            labelEquationPreview.Text = $"{labelEquationPreview.Text} {labelContentOutput.Text} =";
+
+            buttonPlus.IsEnabled = true;
+            buttonMinus.IsEnabled = true;
+            buttonMultiplied.IsEnabled = true;
+            buttonDivided.IsEnabled = true;
+
+            try
+            {
+
+                switch (operation)
+                {
+                    case "+":
+                        result = labelContentOutput.Text = (numOne + numTwo).ToString();
+                        break;
+                    case "-":
+                        result = labelContentOutput.Text = (numOne - numTwo).ToString();
+                        break;
+                    case "x":
+                        result = labelContentOutput.Text = (numOne * numTwo).ToString();
+                        break;
+                    case "÷":
+                        try
+                        {
+                            result = labelContentOutput.Text = (numOne / numTwo).ToString();
+                        }
+                        catch (System.DivideByZeroException)
+                        {
+                            result = labelContentOutput.Text = "Infinity";
+                        }
+                        break;
+
+                    default:
+                        labelEquationPreview.Text = $"{labelContentOutput.Text} =";
+                        break;
+                }
+            }
+            catch (System.OverflowException)
+            {
+                MessageBox.Show("The Number Is Too Long.");
+            }
         }
 
         private void ButtonBackspace_Click(object sender, RoutedEventArgs e)
         {
-            if (Operand != "")
+            if (labelContentOutput.Text.Length > 0)
             {
-                var secondString = SecondNumber.ToString();
-                if (secondString.Length >= 1)
-                {
-                    var newSecondNumberString = secondString.Substring(0, secondString.Length - 1);
-
-                    if (newSecondNumberString == "" || newSecondNumberString == "-") // is backspaced number 0, blank, or negative ?
-                    {
-                        SecondNumber = 0;
-                        ShowNumber = SecondNumber;
-                    }
-                    else
-                    {
-                        SecondNumber = double.Parse(newSecondNumberString); // else remove one number
-                        ShowNumber = SecondNumber;
-                    }
-                }
+                labelContentOutput.Text = labelContentOutput.Text.Remove(labelContentOutput.Text.Length - 1, 1);
             }
-            else
-            {
-                var firstString = FirstNumber.ToString();
-                if (firstString.Length >= 1)
-                {
-                    var newFirstNumberString = firstString.Substring(0, firstString.Length - 1);
-
-                    if (newFirstNumberString == "" || newFirstNumberString == "-") // is backspaced number 0, blank, or negative ?
-                    {
-                        FirstNumber = 0;
-                        ShowNumber = FirstNumber;
-                    }
-                    else
-                    {
-                        FirstNumber = double.Parse(newFirstNumberString); // else remove one number
-                        ShowNumber = FirstNumber;
-                    }
-                }
-            }
+            if (labelContentOutput.Text == "")
+                labelContentOutput.Text = labelContentOutput.Text = "0";
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Numbers(object sender, RoutedEventArgs e)
         {
-            Button B = (Button)sender; // Cast Generic Object To Buttom
+            if (labelContentOutput.Text == result)
+                labelContentOutput.Text = "0";
 
-            // To Get Rid of the Initial 0 in the Display
-            if ((labelContentOutput.Text.ToString() == "0") || OperandPressed)
-            {
-                labelContentOutput.Text = " ";
-            }
+            buttonPlus.IsEnabled = true;
+            buttonMinus.IsEnabled = true;
+            buttonMultiplied.IsEnabled = true;
+            buttonDivided.IsEnabled = true;
 
-            if (B.Content.ToString() == ".")
+            Button B = (Button)sender;
+            if (labelContentOutput.Text == "0")
             {
-                IsDecimal = true;
+                labelContentOutput.Text = B.Content.ToString();
             }
             else
             {
-                if (IsSecond)
-                {
-                    if (IsDecimal)
-                    {
-                        SecondNumber = double.Parse($"{SecondNumber}.{B.Content}");
-                    }
-                    else
-                    {
-                        SecondNumber = double.Parse($"{SecondNumber}{B.Content}");
-                    }
-                    ShowNumber = SecondNumber;
-                }
-                else
-                {
-                    if (IsDecimal)
-                    {
-                        FirstNumber = double.Parse($"{FirstNumber}.{B.Content}");
-                    }
-                    else
-                    {
-                        FirstNumber = double.Parse($"{FirstNumber}{B.Content}");
-                    }
-                    ShowNumber = FirstNumber;
-                }
+                labelContentOutput.Text += B.Content.ToString();
             }
-            OperandPressed = false;
         }
 
         private void Button_Operand(object sender, RoutedEventArgs e)
         {
+            buttonEquals.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
             Button B = (Button)sender;
+            numOne = decimal.Parse(labelContentOutput.Text);
+            operation = B.Content.ToString();
+            labelContentOutput.Text = "0";
 
-            if ((labelContentOutput.Text.ToString() == "0") || OperandPressed)
-            {
-                labelContentOutput.Text = "0";
-            }
-            if (Operand == "")
-            {
-                Operand = B.Content.ToString(); // store operand
-                IsSecond = true;
-                ShowNumber = SecondNumber;
-                IsNegative = false;
-                IsDecimal = false;
-                DecimalValue = 1;
-            }
-            else
-            {
-                switch (Operand)
-                {
-                    case "+":
-                        Result = FirstNumber + SecondNumber;
-                        break;
+            labelEquationPreview.Text = numOne.ToString() + " " + operation;
 
-                    case "-":
-                        Result = FirstNumber - SecondNumber;
-                        break;
+            buttonPlus.IsEnabled = false;
+            buttonMinus.IsEnabled = false;
+            buttonMultiplied.IsEnabled = false;
+            buttonDivided.IsEnabled = false;
 
-                    case "×":
-                        Result = FirstNumber * SecondNumber;
-                        break;
-
-                    case "÷":
-                        Result = FirstNumber / SecondNumber;
-                        break;
-
-                    default:
-                        break;
-                }
-                ResetAfterCalculation();
-            }
         }
 
         private void Button_Negative(object sender, RoutedEventArgs e)
         {
-            Button B = (Button)sender;
-
-            if (B.Content.ToString() == "+/-")
-            {
-                IsNegative = true;
-
-                if (IsSecond)
-                {
-                    SecondNumber *= NegativeValue;
-                    ShowNumber = SecondNumber;
-                }
-                else
-                {
-                    FirstNumber *= NegativeValue;
-                    ShowNumber = FirstNumber;
-                }
-            }
-            OperandPressed = false;
-        }
-
-        public void ResetAfterCalculation()
-        {
-            FirstNumber = Result;
-            ShowNumber = Result;
-            SecondNumber = 0;
-            Operand = "";
-            textEquationPreview.Text = "";
+            labelContentOutput.Text = Convert.ToString(-1 * double.Parse(labelContentOutput.Text));
         }
 
         private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
