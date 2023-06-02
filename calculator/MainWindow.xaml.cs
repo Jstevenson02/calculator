@@ -59,7 +59,7 @@ namespace calculator
                     case "-":
                         result = labelContentOutput.Text = (numOne - numTwo).ToString();
                         break;
-                    case "x":
+                    case "×":
                         result = labelContentOutput.Text = (numOne * numTwo).ToString();
                         break;
                     case "÷":
