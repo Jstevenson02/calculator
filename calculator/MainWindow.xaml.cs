@@ -20,11 +20,6 @@ namespace calculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        //Double Value = 0; // Store Decimal and Int Values if needed
-        private string Operand;
-
-        private bool OperandPressed;
-
 
         public MainWindow()
         {
@@ -44,8 +39,13 @@ namespace calculator
             DecimalValue = 1;
             NegativeValue = -1;
             Operand = string.Empty;
-            UpdatePreviewEquation();
         }
+
+        //Double Value = 0; // Store Decimal and Int Values if needed
+        private string Operand;
+
+        private bool OperandPressed;
+
 
         private double _showNumber;
 
@@ -107,7 +107,7 @@ namespace calculator
                 ClearAll();
             }
             labelContentOutput.Text = "0";
-            UpdatePreviewEquation();
+            textEquationPreview.Text = "";
         }
 
         private void ButtonBackspace_Click(object sender, RoutedEventArgs e)
@@ -194,23 +194,6 @@ namespace calculator
                 }
             }
             OperandPressed = false;
-            UpdatePreviewEquation();
-        }
-
-        private void UpdatePreviewEquation()
-        {
-            var currentEquationList = new List<string>();
-            string currentValue = labelContentOutput.Text;
-            currentEquationList.Add(currentValue);
-
-            if (currentEquationList.Count <= 0)
-            {
-                textEquationPreview.Text = "";
-            }
-            for (int i = 0; i < currentEquationList.Count; i++)
-            {
-                textEquationPreview.Text = currentEquationList[i];
-            }
         }
 
         private void Button_Operand(object sender, RoutedEventArgs e)
@@ -219,7 +202,7 @@ namespace calculator
 
             if ((labelContentOutput.Text.ToString() == "0") || OperandPressed)
             {
-                labelContentOutput.Text = " ";
+                labelContentOutput.Text = "0";
             }
             if (Operand == "")
             {
@@ -232,38 +215,51 @@ namespace calculator
             }
             else
             {
-                DoCalcuation();
+                switch (Operand)
+                {
+                    case "+":
+                        Result = FirstNumber + SecondNumber;
+                        break;
+
+                    case "-":
+                        Result = FirstNumber - SecondNumber;
+                        break;
+
+                    case "×":
+                        Result = FirstNumber * SecondNumber;
+                        break;
+
+                    case "÷":
+                        Result = FirstNumber / SecondNumber;
+                        break;
+
+                    default:
+                        break;
+                }
+                ResetAfterCalculation();
             }
-            UpdatePreviewEquation();
         }
 
-        public void DoCalcuation()
+        private void Button_Negative(object sender, RoutedEventArgs e)
         {
-            switch (Operand)
+            Button B = (Button)sender;
+
+            if (B.Content.ToString() == "+/-")
             {
-                case "+":
-                    Result = FirstNumber + SecondNumber;
-                    ResetAfterCalculation();
-                    break;
+                IsNegative = true;
 
-                case "-":
-                    Result = FirstNumber - SecondNumber;
-                    ResetAfterCalculation();
-                    break;
-
-                case "×":
-                    Result = FirstNumber * SecondNumber;
-                    ResetAfterCalculation();
-                    break;
-
-                case "÷":
-                    Result = FirstNumber / SecondNumber;
-                    ResetAfterCalculation();
-                    break;
-
-                default:
-                    break;
+                if (IsSecond)
+                {
+                    SecondNumber *= NegativeValue;
+                    ShowNumber = SecondNumber;
+                }
+                else
+                {
+                    FirstNumber *= NegativeValue;
+                    ShowNumber = FirstNumber;
+                }
             }
+            OperandPressed = false;
         }
 
         public void ResetAfterCalculation()
@@ -366,27 +362,6 @@ namespace calculator
             }
         }
 
-        private void Button_Negative(object sender, RoutedEventArgs e)
-        {
-            Button B = (Button)sender;
 
-            if (B.Content.ToString() == "+/-")
-            {
-                IsNegative = true;
-
-                if (IsSecond)
-                {
-                    SecondNumber *= NegativeValue;
-                    ShowNumber = SecondNumber;
-                }
-                else
-                {
-                    FirstNumber *= NegativeValue;
-                    ShowNumber = FirstNumber;
-                }
-            }
-            OperandPressed = false;
-            UpdatePreviewEquation();
-        }
     }
 }
